@@ -10,4 +10,13 @@ public class MainClassTest {
         assertThat("Метод getLocalNumber() не возвращает число 14", a == 14);
     }
 
+    @Test
+    public void testGetClassNumber() {
+        MainClass mainClass = new MainClass();
+        int a = mainClass.getClassNumber();
+        assertThat("Метод getClassNumber() не возвращает число > 45", a > 45);
+    }
+
+
+
 }
