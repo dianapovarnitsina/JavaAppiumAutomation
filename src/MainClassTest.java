@@ -1,5 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.junit.Assert.assertThat;
 
 public class MainClassTest {
 
@@ -17,9 +19,7 @@ public class MainClassTest {
 
     @Test
     public void testGetClassString() {
-        if (mainClass.getClassString().contains("Hello")) {
-        } else {
-            Assert.assertTrue("Метод getClassString не возвращает строку, в которой есть подстрока \"hello\" или \"Hello\"", mainClass.getClassString().contains("hello"));
-        }
+        Assert.assertTrue("Метод getClassString не возвращает строку, в которой есть подстрока \"hello\" или \"Hello\"",
+            mainClass.getClassString().contains("Hello") | mainClass.getClassString().contains("hello"));
     }
 }
