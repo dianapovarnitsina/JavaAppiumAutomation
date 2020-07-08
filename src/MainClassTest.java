@@ -3,20 +3,23 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MainClassTest {
 
+    MainClass mainClass = new MainClass();
+
     @Test
     public void testGetLocalNumber() {
-        MainClass mainClass = new MainClass();
-        int a = mainClass.getLocalNumber();
-        assertThat("Метод getLocalNumber() не возвращает число 14", a == 14);
+        assertThat("Метод getLocalNumber() не возвращает число 14", mainClass.getLocalNumber() == 14);
     }
 
     @Test
     public void testGetClassNumber() {
-        MainClass mainClass = new MainClass();
-        int a = mainClass.getClassNumber();
-        assertThat("Метод getClassNumber() не возвращает число > 45", a > 45);
+        assertThat("Метод getClassNumber() не возвращает число > 45", mainClass.getClassNumber() > 45);
     }
 
-
-
+    @Test
+    public void testGetClassString() {
+        if (mainClass.getClassString().contains("Hello")) {
+        } else {
+            assertThat("Метод getClassString не возвращает строку, в которой есть подстрока “hello” или “Hello”", mainClass.getClassString().contains("hello"));
+        }
+    }
 }
