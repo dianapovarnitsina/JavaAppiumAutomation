@@ -1,7 +1,5 @@
 import org.junit.Assert;
 import org.junit.Test;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.assertThat;
 
 public class MainClassTest {
 
