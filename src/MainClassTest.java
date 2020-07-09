@@ -20,6 +20,6 @@ public class MainClassTest {
     @Test
     public void testGetClassString() {
         Assert.assertTrue("Метод getClassString не возвращает строку, в которой есть подстрока \"hello\" или \"Hello\"",
-            mainClass.getClassString().contains("Hello") | mainClass.getClassString().contains("hello"));
+            mainClass.getClassString().contains("Hello") || mainClass.getClassString().contains("hello"));
     }
 }
