@@ -73,7 +73,7 @@ public class DZ4 extends CoreTestCase {
 
         MainPageObject mainPageObject = new MainPageObject(driver);
         mainPageObject.assertElementPresent(
-            By.id("org.wikipedia:id/view_page_title_text"),
+            "id:org.wikipedia:id/view_page_title_text",
             "Not find title",
             0
         );
