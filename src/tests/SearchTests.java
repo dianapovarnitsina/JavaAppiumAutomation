@@ -2,13 +2,14 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.UI.SearchPageObject;
+import lib.UI.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class SearchTests extends CoreTestCase {
 
     @Test
     public void testSearch() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         searchPageObject.intitSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.waitForSearchResult("Object-oriented programming language");
@@ -16,7 +17,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testCanselSearch() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
 
         searchPageObject.intitSearchInput();
         searchPageObject.waitForCancelButtonToAppear();
@@ -25,7 +26,7 @@ public class SearchTests extends CoreTestCase {
     }
     @Test
     public void testAmountOfNotEmptySearch() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         String searchLine = "Linkin Park Dis";
         searchPageObject.intitSearchInput();
         searchPageObject.typeSearchLine(searchLine);
@@ -39,7 +40,7 @@ public class SearchTests extends CoreTestCase {
 
     @Test
     public void testAmountOfEmptySearch() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         String searchLine = "bhdbnjdnjdsmddx";
         searchPageObject.intitSearchInput();
         searchPageObject.typeSearchLine(searchLine);

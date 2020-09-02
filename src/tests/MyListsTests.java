@@ -5,19 +5,21 @@ import lib.UI.ArticlePageObject;
 import lib.UI.MyListPageObject;
 import lib.UI.NavigationUI;
 import lib.UI.SearchPageObject;
+import lib.UI.factories.ArticlePageObjectFactory;
+import lib.UI.factories.SearchPageObjectFactory;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase {
 
     @Test
     public void testSaveFirstArticleToMyList() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
 
         searchPageObject.intitSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.clickByArticleWhithSubsting("Object-oriented programming language");
 
-        ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
         articlePageObject.waitForTitleElement();
 
         String articleTitle = articlePageObject.getArticleTitle();

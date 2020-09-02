@@ -6,6 +6,8 @@ import lib.UI.MainPageObject;
 import lib.UI.MyListPageObject;
 import lib.UI.NavigationUI;
 import lib.UI.SearchPageObject;
+import lib.UI.factories.ArticlePageObjectFactory;
+import lib.UI.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
@@ -14,7 +16,7 @@ public class DZ4 extends CoreTestCase {
     @Test
     public void testEx3() {
 
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
 
         String searchLine = "Word";
         searchPageObject.intitSearchInput();
@@ -30,14 +32,14 @@ public class DZ4 extends CoreTestCase {
 
     @Test
     public void testEx5() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         String nameOfFolder = "Learning programming";
 
         searchPageObject.intitSearchInput();
         searchPageObject.typeSearchLine("Java");
         searchPageObject.clickByArticleWhithSubsting("Object-oriented programming language");
 
-        ArticlePageObject articlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);;
         articlePageObject.waitForTitleElement();
         String articleTitleJava = articlePageObject.getArticleTitle();
 
@@ -64,7 +66,7 @@ public class DZ4 extends CoreTestCase {
 
     @Test
     public void testEx6() {
-        SearchPageObject searchPageObject = new SearchPageObject(driver);
+        SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
         String nameOfFolder = "Learning programming";
 
         searchPageObject.intitSearchInput();
