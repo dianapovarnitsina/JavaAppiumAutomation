@@ -11,6 +11,8 @@ public class IOSArticlePageObject extends ArticlePageObject {
         FOOTER_ELEMENT = "id:View article in browser";
         OPTIONS_ADD_TO_ME_LIST_BUTTON = "id:Save for later";
         CLOSE_ARTICLE_BUTTON = "id:Back";
+        AUTH_CLOSE = "id:places auth close";
+        CLEAR_MINI = "id:clear mini";
 //        FOLDER = "//*[@class='android.widget.TextView'][@text='{FOLDER_MAME}']";
     }
 

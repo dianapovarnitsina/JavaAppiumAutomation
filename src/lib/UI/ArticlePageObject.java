@@ -15,7 +15,9 @@ abstract public class ArticlePageObject extends MainPageObject {
         MY_LIST_NAME_INPUT,
         MY_LIST_OK_BUTTON,
         CLOSE_ARTICLE_BUTTON,
-        FOLDER;
+        FOLDER,
+        AUTH_CLOSE,
+        CLEAR_MINI;
 
     public static String getSaveArticleXpathByTitle(String article_title) {
         return TITILE.replace("{TITLE}", article_title);
@@ -38,7 +40,6 @@ abstract public class ArticlePageObject extends MainPageObject {
             return this.waitForElementPresent(getSaveArticleXpathByTitle(nameTitle), "Cannot find article title on page", 15);
         }
     }
-
 
     //получаем текст заголовка
     public String getArticleTitle(String nameTitle) {
@@ -134,5 +135,13 @@ abstract public class ArticlePageObject extends MainPageObject {
             "Cannot close article, cannot find X link",
             5
         );
+    }
+
+    public void iosAuthClose() {
+        this.waitForElementAndClick(AUTH_CLOSE, "", 5);
+    }
+
+    public void iosClearSearchString() {
+        this.waitForElementAndClick(CLEAR_MINI, "", 5);
     }
 }

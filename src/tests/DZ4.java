@@ -51,13 +51,13 @@ public class DZ4 extends CoreTestCase {
             articlePageObject.addArticleToMyList(nameOfFolder);
         } else {
             articlePageObject.addArticlesToMySaved();
-            articlePageObject.waitForElementAndClick("id:places auth close", "", 5);
+            articlePageObject.iosAuthClose();
         }
         articlePageObject.closeArticle();
 
         searchPageObject.intitSearchInput();
         if (Platform.getInstance().isIOS()) {
-            searchPageObject.waitForElementAndClick("id:clear mini", "", 5);
+            articlePageObject.iosClearSearchString();
         }
 
         searchPageObject.typeSearchLine("JBL");
