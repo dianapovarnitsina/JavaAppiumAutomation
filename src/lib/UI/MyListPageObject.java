@@ -1,13 +1,13 @@
 package lib.UI;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import lib.Platform;
 
-public class MyListPageObject extends MainPageObject {
+abstract public class MyListPageObject extends MainPageObject {
 
-    public static final String
-        FOLDER_BY_NAME_TPL = "xpath://*[@text='{FOLDER_MAME}']",
-        ARTICLE_BY_TITLE_TPL = "xpath://*[@text='{TITLE}']";
+    protected static String
+        FOLDER_BY_NAME_TPL,
+        ARTICLE_BY_TITLE_TPL;
 
     private static String getFolderXpathByName(String nameOfFolder) {
         return FOLDER_BY_NAME_TPL.replace("{FOLDER_MAME}", nameOfFolder);
@@ -16,6 +16,10 @@ public class MyListPageObject extends MainPageObject {
     private static String getFolderXpathByTitle(String articleTitle) {
         return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", articleTitle);
     }
+
+//    public static String getSaveArticleXpathByTitle(String article_title) {
+//        return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", article_title);
+//    }
 
     public MyListPageObject(AppiumDriver driver) {
         super(driver);
@@ -40,10 +44,15 @@ public class MyListPageObject extends MainPageObject {
 
     public void swipeByArticleToDelete(String articleTitle) {
         this.waitForArticleToAppearByTitle(articleTitle);
+        String articleXpath = getFolderXpathByTitle(articleTitle);
         this.swipeElementToLeft(
-            getFolderXpathByName(articleTitle),
+            articleXpath,
             "Cannot find saved article"
         );
+        if (Platform.getInstance().isIOS()) {
+            this.clickElementToTheRightUppeeCorner(articleXpath, "Cannot find saved article");
+        }
+
         this.waitForArticleToDisappearByTitle(articleTitle);
     }
 }

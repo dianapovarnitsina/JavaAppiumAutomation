@@ -17,8 +17,12 @@ abstract public class ArticlePageObject extends MainPageObject {
         CLOSE_ARTICLE_BUTTON,
         FOLDER;
 
+    public static String getSaveArticleXpathByTitle(String article_title) {
+        return TITILE.replace("{TITLE}", article_title);
+    }
+
     private static String getFolderXpathByName(String nameOfFolder) {
-        return FOLDER.replace("{FOLDER_MAME}", nameOfFolder);
+        return FOLDER.replace("{FOLDER}", nameOfFolder);
     }
 
     public ArticlePageObject(AppiumDriver driver) {
@@ -26,13 +30,19 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
 
     //ожидаем появления заголовка на прогружаемой странице
-    public WebElement waitForTitleElement() {
-        return this.waitForElementPresent(TITILE, "Cannot find article title on page", 15);
+    public WebElement waitForTitleElement(String nameTitle) {
+        if (Platform.getInstance().isAndroid()) {
+            return this.waitForElementPresent(TITILE, "Cannot find article title on page", 15);
+        }
+        else {
+            return this.waitForElementPresent(getSaveArticleXpathByTitle(nameTitle), "Cannot find article title on page", 15);
+        }
     }
 
+
     //получаем текст заголовка
-    public String getArticleTitle() {
-        WebElement titleElement = waitForTitleElement();
+    public String getArticleTitle(String nameTitle) {
+        WebElement titleElement = waitForTitleElement(nameTitle);
         if (Platform.getInstance().isAndroid()) {
             return titleElement.getAttribute("text");
         } else {
@@ -42,11 +52,17 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     //свайпаем вверх, спускаемся к низу страницы
     public void swipeToFolder() {
-        this.swipeUpToFindElement(
-            FOOTER_ELEMENT,
-            "Cannot find the end of article",
-            20
-        );
+        if (Platform.getInstance().isAndroid()) {
+            this.swipeUpToFindElement(
+                FOOTER_ELEMENT,
+                "Cannot find the end of article",
+                40
+            );
+        } else {
+            this.swipeUPTitleElementAppear(FOOTER_ELEMENT,
+                "Cannot find the end of article",
+                40);
+        }
     }
 
     public void addArticleToMyList(String nameOfFolder) {
@@ -73,7 +89,6 @@ abstract public class ArticlePageObject extends MainPageObject {
             "Cannot find input to set name of articles folder",
             5
         );
-
 
         this.waitForElementAndSendKeys(
             MY_LIST_NAME_INPUT,
@@ -103,10 +118,14 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
 
         this.waitForElementAndClick(
-            getFolderXpathByName(FOLDER),
+            getFolderXpathByName(nameOfFolder),
             "",
             5
         );
+    }
+
+    public void addArticlesToMySaved() {
+        this.waitForElementAndClick(OPTIONS_ADD_TO_ME_LIST_BUTTON, "Cannot find option to add article to reading list", 5);
     }
 
     public void closeArticle() {

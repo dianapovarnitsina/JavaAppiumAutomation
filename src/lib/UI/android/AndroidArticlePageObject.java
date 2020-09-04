@@ -13,7 +13,7 @@ public class AndroidArticlePageObject extends ArticlePageObject {
         MY_LIST_NAME_INPUT = "id:org.wikipedia:id/text_input";
         MY_LIST_OK_BUTTON = "xpath://*[@text='OK']";
         CLOSE_ARTICLE_BUTTON = "xpath://android.widget.ImageButton[@content-desc='Navigate up']";
-        FOLDER = "xpath://*[@class='android.widget.TextView'][@text='{FOLDER_MAME}']";
+        FOLDER = "xpath://*[@class='android.widget.TextView'][@text='{FOLDER}']";
     }
 
     public AndroidArticlePageObject(AppiumDriver driver) {

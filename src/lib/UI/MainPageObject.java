@@ -13,6 +13,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import lib.Platform;
 
 public class MainPageObject {
 
@@ -123,6 +124,23 @@ public class MainPageObject {
         }
     }
 
+    public void swipeUPTitleElementAppear(String locator, String errorMassage, int maxSwipes) {
+        int alreadySwiped = 0;
+        while (!this.isElementLocatedOnTheScreen(locator)) {
+            if (alreadySwiped > maxSwipes) {
+                Assert.assertTrue(errorMassage, this.isElementLocatedOnTheScreen(locator));
+            }
+            swipeUpQuick();
+            ++alreadySwiped;
+        }
+    }
+
+    public boolean isElementLocatedOnTheScreen(String locator) {
+        int elementLocationByY = this.waitForElementPresent(locator, "Cannot find element by locator", 1).getLocation().getY();
+        int screenSizeByY = driver.manage().window().getSize().getHeight();
+        return elementLocationByY < screenSizeByY;
+    }
+
     public String waitForElementAndGetAttribute(String locator, String attribute, String errorMassage, long timeOutInSecond) {
         WebElement element = waitForElementPresent(locator, errorMassage, timeOutInSecond);
         return element.getAttribute(attribute);
@@ -141,6 +159,21 @@ public class MainPageObject {
         return elements.size();
     }
 
+    public void clickElementToTheRightUppeeCorner(String locator, String errorMassage) {
+        WebElement element = this.waitForElementPresent(locator + "/..", errorMassage);
+        int rightX = element.getLocation().getX();
+        int upperY = element.getLocation().getY();
+        int lowerY = upperY + element.getSize().getHeight();
+        int middleY = (upperY + lowerY) / 2;
+        int width = element.getSize().getWidth();
+
+        int pointToClickX = (rightX + width) -3;
+        int pointToClickY = middleY;
+
+        TouchAction action = new TouchAction(driver);
+        action.tap(PointOption.point(pointToClickX, pointToClickY)).perform();
+    }
+
     public void swipeElementToLeft(String locator, String errorMassage) {
         WebElement element = waitForElementPresent(
             locator,
@@ -154,12 +187,17 @@ public class MainPageObject {
         int middleY = (upperY + lowerY) / 2;
 
         TouchAction action = new TouchAction(driver);
-        action
-            .press(PointOption.point(rightX, middleY))
-            .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
-            .moveTo(PointOption.point(leftX, middleY))
-            .release()
-            .perform();
+        action.press(PointOption.point(rightX, middleY));
+        action.waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)));
+
+        if (Platform.getInstance().isAndroid()) {
+            action.moveTo(PointOption.point(leftX, middleY));
+        } else {
+            int ofsetX = (-1 * element.getSize().getWidth());
+            action.moveTo(PointOption.point(ofsetX, 0));
+        }
+        action.release();
+        action.perform();
     }
 
     private By getLocatorByString(String locatorWithType) {

@@ -18,9 +18,9 @@ public class ChangeAppConditionTests extends CoreTestCase {
         searchPageObject.clickByArticleWhithSubsting("Object-oriented programming language");
 
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
-        String titelBeforRotation = articlePageObject.getArticleTitle();
+        String titelBeforRotation = articlePageObject.getArticleTitle("Java (programming language)");
         this.rotateScreenLandscape();
-        String titelAfterRotation = articlePageObject.getArticleTitle();
+        String titelAfterRotation = articlePageObject.getArticleTitle("Java (programming language)");
         assertEquals(
             "Article title have been changed after screen  rotation",
             titelBeforRotation,
@@ -28,7 +28,7 @@ public class ChangeAppConditionTests extends CoreTestCase {
         );
 
         this.rotateScreenPortrait();
-        String titelAfterSecondRotation = articlePageObject.getArticleTitle();
+        String titelAfterSecondRotation = articlePageObject.getArticleTitle("Java (programming language)");
         assertEquals(
             "Article title have been changed after screen  rotation",
             titelBeforRotation,
